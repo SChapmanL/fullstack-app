@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header bg-success">
+        <h6>Employee List</h6>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Codigo</th>
+                  <th>Nombre</th>
+                  <th>Distrito</th>
+                  <th>Email</th>
+                  <th>Botones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(item of gymList; track item.codigoUnico) { <!-- Es mejor hacer track por el ID único -->
+                  <tr>
+                    <td>{{item.codigoUnico}}</td> <!-- Muestra el ID real: 1, 2, 5, etc. -->
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.distrito}}</td>
+                    <td>{{item.email}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-primary" (click)="onEdit(item)">Editar</button>
+                      <!-- El botón de eliminar ya está correcto -->
+                      <button class="btn btn-danger mx-2" (click)="onDelete(item.codigoUnico!)">Eliminar</button>
+                    </td>
+                  </tr>
+                }                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card-header bg-success">
+      New Gym
+    </div>
+    <div class="card-body">
+      <form [formGroup] = "gymForm">
+        <div class="row">
+        <div class="col-12">
+          <label for="">Name</label>
+          <input type="text" formControlName="nombre" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Distrito</label>
+          <input type="text" formControlName="distrito" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Tarifa regular</label>
+          <input type="text" formControlName="tarifa_regular_soles" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Membresia premium</label>
+          <input type="text" formControlName="membresia_premium_soles" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Capacidad maxima</label>
+          <input type="text" formControlName="capacidad_maxima" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Horario</label>
+          <input type="text" formControlName="horario" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Servicios</label>
+          <input type="text" formControlName="servicios" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Telefono</label>
+          <input type="text" formControlName="telefono" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <label for="">Email</label>
+          <input type="text" formControlName="email" class="form-control">
+        </div>
+      </div>
+
+      <div class="row pt-2">
+        <div class="col-6 text-center">
+          <button class="btn btn-secondary" type="button" (click)="reset()">Reinicio</button>
+        </div>
+        <div class="col-6 text-center">
+            @if (!gymForm.controls['codigoUnico'].value) {
+              <button class="btn btn-success" (click)="onSave()" [disabled]="gymForm.invalid">Guardar</button>  
+            } @else {
+              <button class="btn btn-warning" (click)="onUpdate()" [disabled]="gymForm.invalid">Actualizar</button>
+            }
+        </div>
+      </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
